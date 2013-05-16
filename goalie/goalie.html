@@ -1,0 +1,16 @@
+<head>
+  <title>goalie</title>
+</head>
+
+<body>
+  {{> dangerously}}
+</body>
+
+<template name="dangerously">
+<h1>Here's that data you asked for...</h1>
+<ul>
+  {{#each data_list}}
+  <li>name: {{name}}, data: {{data}}</li>
+  {{/each}}
+</ul>
+</template>
