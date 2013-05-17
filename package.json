@@ -2,7 +2,7 @@
     "name": "painter",
     "version": "0.0.1",
     "dependencies": {
-        "opencv": "0.1.0",
+        "cv": "0.0.3",
         "ddp": "0.3.2"
     }
 }

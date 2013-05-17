@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
-
+import StringIO
+import msgpack
 import cv2
 import sys
 import json
@@ -7,6 +8,8 @@ import argparse
 import thread
 import threading
 import traceback
+import random
+from PIL import Image
 
 from ws4py.client.threadedclient import WebSocketClient
 from cmd import Cmd
@@ -279,13 +282,22 @@ def main():
 
     app = App('localhost:3000', True)
 
-    #while True:
     cap = cv2.VideoCapture(0)
-    ret, img = cap.read()
-    cv2.imwrite('output.jpg', img)
-    data = b64encode(open('output.jpg').read())
-     
-    app.do_call('insertImage ["jeff", "%s"]' % data)
+
+    while True:
+        ret, img = cap.read()
+#        options = ['with', 'a', 'box', 'cutter', 'because', 'ox', 'is', 'so', 'gutter']
+#        random.shuffle(options)
+#        data = options[0]
+        output = StringIO.StringIO()
+        image = Image.fromarray(img)
+        image.save(output, format='JPEG')
+        print image.size
+        #msgpack_d = msgpack.packb(output.getvalue())
+        data = b64encode(output.getvalue())
+        output.close()
+        app.do_call('insertData ["jeff", "%s"]' % data)
+
 
 
 if __name__ == '__main__':

@@ -2,13 +2,16 @@ var DDPClient = require('ddp');
 
 var ddpclient = new DDPClient({
   host: "localhost",
-  port: 3000
+    port: 3000
 });
 
 var sendData = function() {
   var data = process.hrtime()[1];
-  console.log('sending ' + data);
-  ddpclient.call('insertData', ['fop', data]);
+
+  var buffer = new Buffer('' + data);
+  // make sure it's a string:
+  console.log('sending ' + buffer);
+  ddpclient.call('insertData', ['fop', buffer]);
 };
 
 ddpclient.connect(function(err) {
@@ -19,6 +22,6 @@ ddpclient.connect(function(err) {
     console.log('connected!');
   }
 
-  setInterval(sendData, 1000);
+  setInterval(sendData, 1);
 });
 
