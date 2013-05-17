@@ -1,4 +1,8 @@
 #!/usr/bin/env python2.7
+import time
+
+url = "goalie.meteor.com"
+
 import StringIO
 import msgpack
 import cv2
@@ -269,18 +273,7 @@ class App(Cmd):
 
 
 def main():
-    """Parse the command line arguments and create a new App instance"""
-    parser = argparse.ArgumentParser(
-        description='A command-line tool for communicating with a DDP server.')
-    parser.add_argument(
-        'ddp_endpoint', metavar='ddp_endpoint',
-        help='DDP websocket endpoint to connect ' +
-        'to, e.g. madewith.meteor.com')
-    parser.add_argument(
-        '--print-raw', dest='print_raw', action="store_true",
-        help='print raw websocket data in addition to parsed results')
-
-    app = App('localhost:3000', True)
+    app = App(url, True)
 
     cap = cv2.VideoCapture(0)
 
@@ -297,6 +290,7 @@ def main():
         data = b64encode(output.getvalue())
         output.close()
         app.do_call('insertData ["jeff", "%s"]' % data)
+        time.sleep(1)
 
 
 

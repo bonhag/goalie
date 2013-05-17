@@ -8,9 +8,7 @@
 
 <template name="dangerously">
 <h1>Here's that data you asked for...</h1>
-<ul>
-  {{#each data_list}}
-  <li>name: {{name}}, data: {{data}}, img: <img src="{{data}}"/></li>
-  {{/each}}
-</ul>
+{{#each data_list}}
+<img src="{{url}}"/>
+{{/each}}
 </template>
